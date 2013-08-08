@@ -1,0 +1,70 @@
+<head>
+  <title>RecipesToShoppingList</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                {{> recipes}}
+            </div>
+            <div class="span9">
+                {{> createRecipeDialog}}
+            </div>
+        </div>
+    </div>
+</body>
+
+<template name="recipes">
+    <div id="recipeList">
+        <h2>Recipes</h2>
+        {{#each recipes}}
+            {{> recipe}}
+        {{/each}}
+        <button id="createRecipeBtn" class="btn btn-primary btn-lg">Create New Recipe</button>
+    </div>
+</template>
+
+<template name="recipe">
+    <div class="recipe">
+        <strong>{{name}}</strong>
+        <input type="button" value="Add to Shopping List">
+    </div>
+</template>
+
+<template name="createRecipeDialog">
+    <div id="createRecipeDialog">
+        <div>
+            <h2>Create a Recipe</h2>
+        </div>
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <label for="inputRecipeName">Name</label>
+                    <input type="text" class="form-control" id="inputRecipeName" placeholder="Name this recipe">
+                </div>
+                <div class="form-group">
+                    <label for="inputNumServings">How many servings does this recipe make?</label>
+                    <input type="number" class="form-control" id="inputRecipeName" placeholder="Number of Servings">
+                </div>
+                <input type="hidden" id="numIngredients" value="1">
+                <div id="createRecipeIngredients">
+                </div>
+                <button id="addAnotherIngredient" class="btn btn-link">Add another ingredient</button>
+            </fieldset>
+        </form>
+        <div>
+            <button type="button" id="createRecipeSaveBtn" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</template>
+
+<template name="addIngredient">
+    <span>{{index}}</span>
+    <fieldset>
+        <input type="number" id="qty{{index}}" class="form-control span1" placeholder="Qty">
+        <input type="text" id="measure{{index}}" class="form-control span2" placeholder="Measure">
+        <input type="text" id="ingredientName{{index}}" class="form-control span5" placeholder="Ingredient">
+    </fieldset>
+</template>
