@@ -6,7 +6,7 @@ if (Meteor.isClient) {
     Template.recipes.events = {};
 
     Template.recipes.events['click #createRecipeBtn'] = function(event) {
-        $('#createRecipeDialog').show();
+        $('#createRecipe').show();
         $('#inputRecipeName').focus();
     };
 
@@ -15,9 +15,9 @@ if (Meteor.isClient) {
     };
 
     /* createRecipeDialog template */
-    Template.createRecipeDialog.events = {};
+    Template.createRecipe.events = {};
 
-    Template.createRecipeDialog.events['click #addAnotherIngredient'] = function(event) {
+    Template.createRecipe.events['click #addAnotherIngredient'] = function(event) {
         var numIngredients = $('#numIngredients').val();
         numIngredients++;
         $('#numIngredients').val(numIngredients);
@@ -25,7 +25,7 @@ if (Meteor.isClient) {
         return false;
     };
 
-    Template.createRecipeDialog.events['click #createRecipeSaveBtn'] = function(event) {
+    Template.createRecipe.events['click #createRecipeSaveBtn'] = function(event) {
         var name = $('#inputRecipeName').val();
         var numServings = $('#inputNumServings').val();
         var numIngredients = $('#numIngredients').val();
@@ -47,14 +47,37 @@ if (Meteor.isClient) {
         }
     };
 
-    Template.createRecipeDialog.rendered = function() {
+    Template.createRecipe.rendered = function() {
         var numIngredients = $('#numIngredients').val();
         for(var i=0; i<numIngredients; i++){
             $('#createRecipeIngredients').append(Template.addIngredient({index: i+1}));
         }
     };
 
+    /* navbar template */
+    Template.navbar.changeScreen = function(screenName) {
+        $('ul.nav li').each(function(idx, element){
+            if($(element).attr('class') === 'active') {
+                $(element).attr('class','');
+                var id = $(element).attr('id');
+                id = id.substring(0, id.length -3); // remove 'Nav' from the end of the name
+                $('#' + id).hide();
+            }
+        });
 
+        $('#' + screenName + 'Nav').attr('class', 'active');
+        $('#' + screenName).show();
+    };
+
+    Template.navbar.events = {};
+
+    Template.navbar.events['click #createRecipeNavLink'] = function(event) {
+        Template.navbar.changeScreen('createRecipe');
+    };
+
+    Template.navbar.events['click #shoppingListNavLink'] = function(event) {
+        Template.navbar.changeScreen('shoppingList');
+    };
 }
 
 if (Meteor.isServer) {

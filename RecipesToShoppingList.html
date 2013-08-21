@@ -4,17 +4,37 @@
 </head>
 
 <body>
+    {{> navbar}}
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
                 {{> recipes}}
             </div>
             <div class="span9">
-                {{> createRecipeDialog}}
+                {{> createRecipe}}
+                {{> shoppingList}}
             </div>
         </div>
     </div>
 </body>
+
+<template name="navbar">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <a class="brand" href="#">R2SL</a>
+            <ul class="nav">
+                <li id="createRecipeNav" class="active"><a id="createRecipeNavLink" href="#">Create a Recipe</a>
+                <li id="shoppingListNav"><a id="shoppingListNavLink" href="#">Shopping List</a>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="shoppingList">
+    <div id="shoppingList" style="display:none;">
+        <h2>Shopping List</h2>
+    </div>
+</template>
 
 <template name="recipes">
     <div id="recipeList">
@@ -33,8 +53,8 @@
     </div>
 </template>
 
-<template name="createRecipeDialog">
-    <div id="createRecipeDialog">
+<template name="createRecipe">
+    <div id="createRecipe">
         <div>
             <h2>Create a Recipe</h2>
         </div>
